@@ -1,0 +1,30 @@
+name: Automated Project Board Management
+
+on:
+  issues:
+    types:
+      - opened
+      - edited
+      - closed
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - closed
+  push:
+    branches:
+      - main
+
+jobs:
+  update-board:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Update Project Board
+        uses: peter-evans/project-board-columns@v1
+        with:
+          project: AI
+          auto-update-issues: true
